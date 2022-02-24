@@ -311,7 +311,281 @@ Let’s explore what happens with NoData values when working with RasterStack ob
 <summary>Solution
 </summary>
 
-1.  Yes
-2.  -9999
-2. 3
-6. 
+1. Yes
+2. -9999
+3. 3
+4. The black edges are not plotted.
+1. Both data sets have NoData values, however, in the RGB_stack the NoData value is not defined in the tiff tags, thus R renders them as black as the reflectance values are 0. The black edges in the other file are defined as -9999 and R renders them as NA.
+
+</details>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## Spatial extent
+
+![](/figures/spatial_extent.png)
+
+<br>
+<br>
+<br>
+<br>
+
+## Exercise 7.1 Subset spatial line objects
+Subset out all `boardwalk` from the lines layer and plot it.
+
+<details>
+<summary>Solution
+</summary>
+
+```
+boardwalk_HARV <- lines_HARV %>%
+filter(TYPE == "boardwalk")
+
+nrow(boardwalk_HARV)
+
+ggplot() +
+geom_sf(data = boardwalk_HARV, size = 1.5) +
+ggtitle("NEON Harvard Forest Field Site", subtitle = "Boardwalks") +
+coord_sf()
+```
+
+</details>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## Exercise 7.2 Subset spatial line objects 2
+Subset out all `stone wall` features from the lines layer and plot it. For each plot, color each feature using a unique color.
+
+<details>
+<summary>Solution
+</summary>
+
+```
+stoneWall_HARV <- lines_HARV %>% 
+  filter(TYPE == "stone wall")
+nrow(stoneWall_HARV)
+
+ggplot() +
+  geom_sf(data = stoneWall_HARV, aes(color = factor(OBJECTID)), size = 1.5) +
+  labs(color = 'Wall ID') +
+  ggtitle("NEON Harvard Forest Field Site", subtitle = "Stonewalls") + 
+  coord_sf()
+```
+
+</details>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## Exercise 7.3 PLot line width by attribute
+Let’s create another plot where we show the different line types with the following thicknesses:
+
+1. woods road size = 6
+2. boardwalks size = 1
+3. footpath size = 3
+4. stone wall size = 2
+
+
+<details>
+<summary>Solution
+</summary>
+
+```
+levels(lines_HARV$TYPE)
+line_width <- c(1, 3, 2, 6)
+ggplot() +
+  geom_sf(data = lines_HARV, aes(size = TYPE)) +
+  scale_size_manual(values = line_width) +
+  ggtitle("NEON Harvard Forest Field Site", subtitle = "Roads & Trails - Line width varies") + 
+  coord_sf()
+```
+
+</details>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+![](/figures/map_usa_different_projections.jpg)
+
+<br>
+<br>
+<br>
+<br>
+
+## Exercise 9.1 Plot layers of spatial data
+
+Create a map of the North Eastern United States as follows:
+
+1. Import and plot`Boundary-US-State-NEast.shp`. Change the line size unti you like it. Hint: import using this command: `NE.States.Boundary.US <- st_read("data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/Boundary-US-State-NEast.shp")`
+2. Layer the Fisher Tower (in the NEON Harvard Forest site) point location `point_HARV` onto the plot.
+
+
+<details>
+<summary>Solution
+</summary>
+
+```
+ggplot() +
+ geom_sf(data = NE.States.Boundary.US, size=1, color="gray18") +
+ geom_sf(data=point_HARV, shape=19, color = "purple") +
+ ggtitle("Fisher Tower location") + coord_sf()
+
+```
+
+</details>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## Exercise 10.1 
+We want to add two phenology plots to our existing map of vegetation plot locations.
+
+Import the .csv: `HARV/HARV_2NewPhenPlots.csv` . Hint: `newplot_locations_HARV <-
+read.csv("data/NEON-DS-Site-Layout-Files/HARV/HARV_2NewPhenPlots.csv")`
+
+Find the X and Y coordinate locations. Which value is X and which value is Y?
+Hint: We need to use the format (Longitude, Latitude).
+
+These data were collected in a geographic coordinate system (WGS84). Convert the dataframe into an sf object.
+Hint: The US boundary data (`country_boundary_US`) we worked with previously is in a geographic WGS84 CRS.
+
+Convert the data to a shapefile and plot the new points with the plot location points from the previous example (`plot_locations_sp_HARV`). Use a different symbol for the
+2 new points by adding a `color` parameter to each `geom_sf` function. 
+
+<details>
+<summary>Solution
+</summary>
+
+Read in csv and look at columns
+```
+
+newplot_locations_HARV <-
+  read.csv("data/NEON-DS-Site-Layout-Files/HARV/HARV_2NewPhenPlots.csv")
+str(newplot_locations_HARV)
+
+```
+Use CRS from previous data
+
+```
+geogCRS <- st_crs(country_boundary_US)
+geogCRS
+```
+
+Convert data to a shapefile and plot
+
+```
+newPlot_sp_HARV <- st_as_sf(newplot_locations_HARV, coords = c("decimalLon", "decimalLat"), crs = geogCRS)
+ggplot() +
+  geom_sf(data = plot_locations_sp_HARV, color = "orange") +
+  geom_sf(data = newPlot_sp_HARV, color = "lightblue") +
+  ggtitle("Map of All Plot Locations")
+```
+
+</details>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+![](/figures/rmd-11-compare-data-extents-1.png)
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## Exercise 11.1 Extract raster height values for plot locations
+Use the plot locations object (`plot_locations_sp_HARV`) to extract an average tree height for the area within 
+20m of each vegetation plot location in the study area. 
+Because there are multiple plot locations, there will be multiple averages returned, 
+so the `df = TRUE` argument should be used.
+
+Print the values to the screen.
+
+<details>
+<summary>Solution
+</summary>
+
+
+```
+mean_tree_height_tower <- extract(x = CHM_HARV,
+                                  y = point_HARV,
+                                  buffer = 20,
+                                  fun = mean)
+ 
+mean_tree_height_tower
+
+
+```
+
+</details>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+![](/figures/UTM_zones_18-19.jpg)
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## Dataframe without melt
+```
+   
+      x       y      X005_HARV_ndvi_crop   X037_HARV_ndvi_crop ...
+1  239430 4714350                4451                3106
+```
+
+## Dataframe with melt
+```
+         x       y            variable value
+1   239430 4714350 X005_HARV_ndvi_crop  4451
+2   239460 4714350 X005_HARV_ndvi_crop  5545
+3   239490 4714350 X005_HARV_ndvi_crop  5251
+```
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## Julian day 133
+
+![](/figures/rmd-12-ndvi-plots-1.png)
+
+## Julian day 197
+
+![](/figures/rmd-12-ndvi-plots-1.png)
+
+<br>
+<br>
+<br>
+<br>
+<br>
+

@@ -53,7 +53,7 @@ age <- age - 20
 ### Exercise 1.3
 Which of the following are valid R variable names?
 
-```R
+```
 min_height
 max.height
 _age
@@ -150,8 +150,8 @@ Make a data frame that holds the following information for yourself:
 * last name
 * lucky number
 
-Then use rbind to add a new entry.
-Finally, use cbind to add a column with each person’s answer to the question, “Do you like pizza?”
+Then use `rbind` to add a new entry.
+Finally, use `cbind` to add a column with each person’s answer to the question, “Do you like pizza?”
 
 <details>
 <summary>Solution
@@ -288,7 +288,7 @@ Fix each of the following common data frame subsetting errors:
 <br>
 
 ### Exercise 6.1
-Write a single command (which can span multiple lines and includes pipes) that will produce a dataframe that has the African values for lifeExp, country and year, but not for other Continents. How many rows does your dataframe have and why?
+Write a single command (which can span multiple lines and includes pipes) that will produce a dataframe that has the African values for `lifeExp`, `country` and `year`, but not for other Continents. 
 <details>
 <summary>Solution
 </summary>
@@ -333,7 +333,7 @@ ggplot(data = gapminder, aes(x = gdpPercap)) +
 <br>
 <br>
 
-![](/figures/13-dplyr-fig2.png)
+![](/figures/13-dplyr-fig3.png)
 <br>
 <br>
 <br>

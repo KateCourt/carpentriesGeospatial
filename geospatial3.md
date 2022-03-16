@@ -49,11 +49,16 @@
 In some cases, other `NA` values may be more appropriate. An NA value should be:
  1. outside the range of valid values
  2. a value that fits the data type in use.
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
  
  ## Exercise 1.1
 Use the output from the `GDALinfo()` function to find out what `NoDataValue` is used for our `DSM_HARV` dataset.
 
-todo update with file location
 
 `GDALinfo("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")`
 
@@ -209,8 +214,7 @@ ggplot() +
 ## Exercise 4.1
 Data are often more interesting and powerful when we compare them across various locations. Let’s compare some data collected over Harvard Forest to data collected in Southern California. The NEON San Joaquin Experimental Range (SJER) field site located in Southern California has a very different ecosystem and climate than the NEON Harvard Forest Field Site in Massachusetts.
 
-1. You should have the DSM and DTM data for the SJER site already loaded from the Plot Raster Data in R episode.) 
-1. Don’t forget to check the CRSs and units of the data.
+1. You should have the DSM (`DSM_SJER`) and DTM (`DTM_SJER`) data for the SJER site already loaded from the Plot Raster Data in R episode. 
 
 1. Create a CHM from the two raster layers and check to make sure the data are what you expect by creating a historgram.
 1. Plot the CHM from SJER.
@@ -274,6 +278,7 @@ View the attributes of this band. What are its dimensions, CRS, resolution, min 
 resolution: 0.25 x 0.25   
 min: 0 max: 255   
 band: 1 of 3
+crs: +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs
 
 </details>
      
@@ -291,13 +296,21 @@ band: 1 of 3
      <br>
      <br>
      <br>
+
+![](/figures/imageStretch_light.jpg)
+
+<br>
+     <br>
+     <br>
+     <br>
+
      
 ## Exercise 5.2
 
 Let’s explore what happens with NoData values when working with RasterStack objects and using the plotRGB() function. We will use the `HARV_Ortho_wNA.tif` GeoTIFF file in the `NEON-DS-Airborne-Remote-Sensing/HARVRGB_Imagery/` directory.
 
-1. View the files attributes using `GDALinfo("data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_Ortho_wNA.tif")`. Are there `NoData` values assigned for this file?
-2.If so, what is the `NoData` value?
+1. View the files attributes using `GDALinfo("data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_Ortho_wNA.tif")`. Are there `NoData` values assigned for this file?       
+2. If so, what is the `NoData` value?
 3. How many bands does it have?
 
  Load the multi-band raster file into R using the `stack()` function: `HARV_NA <- stack("data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_Ortho_wNA.tif")`    
@@ -388,7 +401,7 @@ ggplot() +
 <br>
 <br>
 
-## Exercise 7.3 PLot line width by attribute
+## Exercise 7.3 Plot line width by attribute
 Let’s create another plot where we show the different line types with the following thicknesses:
 
 1. woods road size = 6
@@ -431,7 +444,7 @@ ggplot() +
 
 Create a map of the North Eastern United States as follows:
 
-1. Import and plot`Boundary-US-State-NEast.shp`. Change the line size unti you like it. Hint: import using this command: `NE.States.Boundary.US <- st_read("data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/Boundary-US-State-NEast.shp")`
+1. Import and plot`Boundary-US-State-NEast.shp`. Change the line size until you like it. Hint: import using this command: `NE.States.Boundary.US <- st_read("data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/Boundary-US-State-NEast.shp")`
 2. Layer the Fisher Tower (in the NEON Harvard Forest site) point location `point_HARV` onto the plot.
 
 
@@ -575,13 +588,13 @@ mean_tree_height_tower
 <br>
 <br>
 
-## Julian day 133
+
 
 ![](/figures/rmd-12-ndvi-plots-1.png)
 
-## Julian day 197
 
-![](/figures/rmd-12-ndvi-plots-1.png)
+
+![](/figures/rmd-12-ndvi-plots-2.png)
 
 <br>
 <br>

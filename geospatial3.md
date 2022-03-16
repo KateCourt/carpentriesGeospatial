@@ -317,8 +317,6 @@ Let’s explore what happens with NoData values when working with RasterStack ob
 
  Plot the object as a true color image: `plotRGB(HARV_NA, r= 1, g = 2, b = 3)`    
 
-4. What happened to the black edges in the data?
-5. What does this tell us about the difference in the data structure between `HARV_Ortho_wNA.tif` and `HARV_RGB_Ortho.tif` (R object `RGB_stack`). How can you check?
 
 <details>
 <summary>Solution
@@ -327,8 +325,6 @@ Let’s explore what happens with NoData values when working with RasterStack ob
 1. Yes
 2. -9999
 3. 3
-4. The black edges are not plotted.
-1. Both data sets have NoData values, however, in the RGB_stack the NoData value is not defined in the tiff tags, thus R renders them as black as the reflectance values are 0. The black edges in the other file are defined as -9999 and R renders them as NA.
 
 </details>
 

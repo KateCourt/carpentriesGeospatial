@@ -1,4 +1,47 @@
 
+## Download and unzip data
+
+```
+download.file("https://figshare.com/ndownloader/files/3701572", destfile = 'data/Met.zip')
+
+unzip('data/Met.zip', files = NULL, list = FALSE, overwrite = TRUE, junkpaths = FALSE, exdir = "data", unzip = "internal", setTimes = FALSE)
+
+download.file("https://figshare.com/ndownloader/files/3701578", destfile = 'data/Airborne.zip')
+
+unzip('data/Airborne.zip', files = NULL, list = FALSE, overwrite = TRUE, junkpaths = FALSE, exdir = "data", unzip = "internal", setTimes = FALSE)
+
+download.file("https://figshare.com/ndownloader/files/3708751", destfile = 'data/Site.zip')
+
+unzip('data/Site.zip', files = NULL, list = FALSE, overwrite = TRUE, junkpaths = FALSE, exdir = "data", unzip = "internal", setTimes = FALSE)
+
+download.file("https://figshare.com/ndownloader/files/4933582", destfile = 'data/Landsat.zip')
+
+unzip('data/Landsat.zip', files = NULL, list = FALSE, overwrite = TRUE, junkpaths = FALSE, exdir = "data", unzip = "internal", setTimes = FALSE)
+
+```
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## Required packages
+
+rgdal   
+raster    
+ggplot2    
+sf   
+dplyr   
+reshape   
+scales   
+rcolorbrewer
+
+<br>
+<br>
+<br>
+<br>
+<br>
 ![](/figures/Utm-zones-USA.svg)
 
 <br>
@@ -479,6 +522,7 @@ Hint: The US boundary data (`country_boundary_US`) we worked with previously is 
 Convert the data to a shapefile and plot the new points with the plot location points from the previous example (`plot_locations_sp_HARV`). Use a different symbol for the
 2 new points by adding a `color` parameter to each `geom_sf` function. 
 
+You can browse colours here: http://sape.inf.usi.ch/quick-reference/ggplot2/colour
 <details>
 <summary>Solution
 </summary>
@@ -538,12 +582,13 @@ Print the values to the screen.
 
 
 ```
-mean_tree_height_tower <- extract(x = CHM_HARV,
-                                  y = point_HARV,
-                                  buffer = 20,
-                                  fun = mean)
- 
-mean_tree_height_tower
+mean_tree_height_plots_HARV <- extract(x = CHM_HARV,
+                                       y = plot_locations_sp_HARV,
+                                       buffer = 20,
+                                       fun = mean,
+                                       df = TRUE)
+
+mean_tree_height_plots_HARV
 
 
 ```
@@ -598,3 +643,4 @@ mean_tree_height_tower
 <br>
 <br>
 
+[https://www.datavis.ca/sasmac/brewerpal.html](https://www.datavis.ca/sasmac/brewerpal.html)

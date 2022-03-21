@@ -2,12 +2,17 @@
 
 ## 1.1 Introduction to raster data
 
+
+### Raster concept
+
 ![](figures/raster_concept.png)
 
 <br>
 <br>
 <br>
 <br>
+
+### Harvard Forest elemvation map
 
 ![](figures/rmd-01-elevation-map-1.png)
 
@@ -16,12 +21,16 @@
 <br>
 <br>
 
+### United States with landcover as categorical data
+
 ![](figures/USA_landcover_classification.png)
 
 <br>
 <br>
 <br>
 <br>
+
+### Harvard Forest with elevation as categorical data
 
 ![](figures/rmd-01-classified-elevation-map-1.png)
 
@@ -30,12 +39,16 @@
 <br>
 <br>
 
+### Extent
+
 ![](figures/spatial_extent.png)
 
 <br>
 <br>
 <br>
 <br>
+
+### Resolution
 
 ![](figures/raster_resolution.png)
 
@@ -44,6 +57,8 @@
 <br>
 <br>
 
+### Multi-band raster
+
 ![](figures/RGBSTack_1.jpg)
 
 <br>
@@ -51,12 +66,16 @@
 <br>
 <br>
 
+### Separate layers
+
 ![](figures/rmd-01-demonstrate-RGB-Image-1.png)
 
 <br>
 <br>
 <br>
 <br>
+
+### Combined layers
 
 ![](figures/rmd-01-plot-RGB-now-1.png)
 
@@ -91,7 +110,7 @@
 <br>
 <br>
 
-A PROJ4 string includes:    
+A PROJ4 string includes:
 
 * proj= the projection of the data
 * zone= the zone of the data (this is specific to the Universal Transverse Mercator projection)
